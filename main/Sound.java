@@ -36,6 +36,7 @@ public class Sound{
             
         } catch (Exception e) { return ; }
         this.timer = false ;
+        System.out.println(this.soundFile.getName());
     }
 
     public void startSound(){
