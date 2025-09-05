@@ -36,7 +36,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 
-
 public class Sprite {
     private BufferedImage image;
     private int posX;

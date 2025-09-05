@@ -67,33 +67,47 @@ public class StateManager {
         }
     }  
 
+    // NEW (updates all ghosts in all locations)
     public void updateGhostPathing() {
-        for (Entity entity: game.getGameLocation().getEntities()) {
-            if (entity instanceof Ghost ghost) {
-                ghost.updateGhostPathing();
+        for (Location location: game.getLocations()) {
+            for (Entity entity: location.getEntities()) {
+                if (entity instanceof Ghost ghost) {
+                    ghost.updateGhostPathing();
+                }
             }
         }
     }
 
+    // NEW (updates all ghosts in all locations)
     public void updateGhostAnimationFrames() {
-        for (Entity entity: game.getGameLocation().getEntities()) {
-            if (entity instanceof Ghost ghost) {
-                ghost.updateAnimationFrames();
+        for (Location location: game.getLocations()) {
+            for (Entity entity: location.getEntities())  {
+                if (entity instanceof Ghost ghost) {
+                    ghost.updateAnimationFrames();
+                }
             }
         }
     }
 
+    // NEW (updates all ghosts in all locations)
     public void updateGhostStates() {
         RunningGhost ghost = null;
-        for (Entity entity: game.getGameLocation().getEntities()) {
-            if (entity instanceof RunningGhost julia) {
-                julia.updateLifetime();
-                ghost = julia;
-            }
+        for (Location location: game.getLocations()) {
+            for (Entity entity: location.getEntities()) {
+                if (entity instanceof RunningGhost julia) {
+                    julia.updateLifetime();
+                    ghost = julia;
+                }
+            }        
         }
+
         if (ghost != null && !ghost.isPresent()) {
             ghost.setVisible(false);
-            game.getGameLocation().getEntities().remove(ghost);
+            for (Location location: game.getLocations()) {
+                if (location.getEntities().contains(ghost)) {
+                    location.getEntities().remove(ghost);
+                }                
+            }
             game.resetJuliaSpawn();
         }
     }

@@ -13,13 +13,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -428,18 +425,22 @@ public class Game extends JPanel implements Runnable {
             this.spawnedClyde = true ;
         }
 
-        if (random.nextInt(200) < 1 && !spawnedNeyro && player.getInventory().size() == 3) {
+        // NEW (inner garden does not allow spawning of Neyro)
+        if (random.nextInt(200) < 1 && !spawnedNeyro && this.currentLocation != innerGarden && player.getInventory().size() == 3) {
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 450, new VampireGhost(player)); 
             this.spawnedNeyro = true;
         }    
 
-        if (random.nextInt(200) < 1 && !spawnedJulia && player.getInventory().size() == 3) {
+        // NEW (inner garden does not allow spawning of Julia)
+        if (random.nextInt(200) < 1 && !spawnedJulia && this.currentLocation != innerGarden && player.getInventory().size() == 3) {
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 450, new RunningGhost(player)); 
             this.spawnedJulia = true;
         }    
-        if (random.nextInt(100) < 1 && !spawnedMM && player.getInventory().size() == 5) {
+
+        // NEW (inner garden does not allow spawning of MM)
+        if (random.nextInt(100) < 1 && !spawnedMM && this.currentLocation != innerGarden && player.getInventory().size() == 5) {
             muntingMonster = new FinaleGhost(player, random.nextInt(100)) ;
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 365, muntingMonster); 
@@ -514,7 +515,7 @@ public class Game extends JPanel implements Runnable {
         this.music.startSound();
         this.music.startLoop() ;
         this.music.setVolume(0.10f);
-        gameLoopThread.start();                           
+        gameLoopThread.start();                                   
     }
 
 
@@ -574,6 +575,13 @@ public class Game extends JPanel implements Runnable {
                 System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
+                
+                for (Location location: getLocations()) {
+                    for (Entity entity: location.getEntities()) {
+                        System.out.print(entity + " ");
+                    }
+                    System.out.println("");
+                }
             }
             
         }
