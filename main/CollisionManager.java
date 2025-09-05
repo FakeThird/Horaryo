@@ -1,8 +1,6 @@
 package main;
 
-import java.util.ArrayList;
-
-import assets.* ;
+import assets.*;
 
 public class CollisionManager {
     private Game game;
@@ -15,7 +13,7 @@ public class CollisionManager {
     private int screenCenterPosition;
 
     private final int ENTRY_DELAY_COOLDOWN = 100;
-
+    
     public CollisionManager(Game game, Player player) {
         this.game = game;
         this.player = player;
@@ -42,9 +40,7 @@ public class CollisionManager {
             collidedGhost.setVisible(false);
             collidedGhost = null;
             game.resetNeyroSpawn();
-            game.resetJuliaSpawn();
             game.resetMMSpawn();
-
         }
         for (Entity entity: game.getGameLocation().getEntities()) {
             if (player.getHitbox().intersects(entity.getHitbox())){  
@@ -75,7 +71,6 @@ public class CollisionManager {
             player.setInteracting(false);
         }
 
-
         if (collidedDoor != null && player.isInteracting()) {
             if (game.getGameLocation().getWidth() > GameWindow.GAME_WIDTH) {
                 game.getGameLocation().moveLocation(-game.getGameLocation().getPosX());
@@ -90,39 +85,44 @@ public class CollisionManager {
 
             player.setPosX(collidedDoor.getLinkedDoor().getPosX() + (collidedDoor.getWidth() - player.getRect().width) / 2);   
             player.setPosY(collidedDoor.getLinkedDoor().getPosY() + (collidedDoor.getHeight() - player.getRect().height));    
-            player.setInteracting(false);                        
-        } 
-
-        if (collidedEntry != null && entryDelay == ENTRY_DELAY_COOLDOWN) {
+            player.setInteracting(false);          
+            
+            // NEW (removes the ghosts when entering a door :>)
+            RunningGhost julia = null;
+            VampireGhost neyro = null;
+            FinaleGhost mm = null;
             for (Location location: game.getLocations()) {
-                ArrayList<Ghost> ghosts = new ArrayList<Ghost>();  
                 for (Entity entity: location.getEntities()) {
-                    if (entity instanceof VampireGhost || entity instanceof RunningGhost || entity instanceof FinaleGhost) {
-                        ghosts.add((Ghost) entity);
+                    if (entity instanceof RunningGhost) {
+                        julia = (RunningGhost) entity;
+                    } else if (entity instanceof VampireGhost) {
+                        neyro = (VampireGhost) entity;
+                    } else if (entity instanceof FinaleGhost) {
+                        mm = (FinaleGhost) entity;
                     }
                 }
-
-                for (Ghost ghost: ghosts) {
-                    ghost.setVisible(false);
-                    location.getEntities().remove(ghost);
-                }
             }
-            game.getGameLocation().moveLocation(-game.getGameLocation().getPosX());
-            game.setGameLocation(collidedEntry.getLocation());
-            
-            if (collidedEntry.getLinkedEntry().getPosX() > game.getGameLocation().getWidth() - screenCenterPosition) {
-                game.getGameLocation().moveLocation(GameWindow.WIDTH - game.getGameLocation().getWidth());
-            } else if (collidedEntry.getLinkedEntry().getPosX() > screenCenterPosition) { 
-                game.getGameLocation().moveLocation(screenCenterPosition - collidedEntry.getLinkedEntry().getPosX());
-            } 
-
-            player.setPosX(collidedEntry.getLinkedEntry().getPosX() + (collidedEntry.getWidth() - player.getRect().width) / 2);   
-            player.setPosY(collidedEntry.getLinkedEntry().getPosY() + (collidedEntry.getHeight() - player.getRect().height) / 2 -   30);    
-            player.setInteracting(false);                        
-            entryDelay = 0;
-        }
-
-        if (collidedGhost != null && (collidedGhost instanceof FlyingGhost ||
+            for (Location location: game.getLocations()) {
+                if (julia != null && location.getEntities().contains(julia)) {
+                    julia.setVisible(false);
+                    location.getEntities().remove(julia);
+                }
+                if (neyro != null && location.getEntities().contains(neyro)) {
+                    neyro.setVisible(false);
+                    location.getEntities().remove(neyro);
+                }
+                if (mm != null && location.getEntities().contains(mm)) {
+                    mm.setVisible(false);
+                    location.getEntities().remove(mm);
+                }
+            }   
+            game.resetJuliaSpawn();
+            game.resetNeyroSpawn();
+            game.resetMMSpawn();  
+        } 
+        
+        if (collidedGhost != null && (
+            collidedGhost instanceof FlyingGhost ||
             (collidedGhost instanceof HeadlessGhost && player.isRunning()) ||
             collidedGhost instanceof VampireGhost ||
             collidedGhost instanceof RunningGhost || collidedGhost instanceof FinaleGhost)) {

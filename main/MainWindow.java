@@ -17,7 +17,7 @@ import javax.swing.*;
 
 public class MainWindow extends JFrame {
         private JButton startButton; // Start Button
-       private JButton exitButton; // Exit Button
+        private JButton exitButton; // Exit Button
     
         public MainWindow(Game game) {
             // Frame setup
