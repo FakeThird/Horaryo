@@ -113,206 +113,207 @@ public class Game extends JPanel implements Runnable {
     
     public void loadImages(int gameOperation) {
         switch (gameOperation) {
-        case Game.GAME_START:
-            this.player = new Player(
-                new Animation("player/0 Breathing Sigma", 1.5F),
-                new Animation("player/1 Breathing Sigma - Reflected", 1.5F),
-                new Animation("player/2 Breathing Sigma Mogging", 1.5F),
-                new Animation("player/3 Breathing Sigma Mogging - Reflected", 1.5F),
-                new Animation("player/4 Walking Beta", 0.95F),
-                new Animation("player/5 Walking Beta - Reflected", 0.95F),
-                new Animation("player/6 Walking Beta Mogging", 0.95F),
-                new Animation("player/7 Walking Beta Mogging - Reflected", 0.95F),
-                new Animation("player/8 Running Edger", 1.75F),
-                new Animation("player/9 Running Edger - Reflected", 1.75F),
-                new Animation("player/10 Running Edger Mogging", 1.75F),
-                new Animation("player/11 Running Edger Mogging - Reflected", 1.75F),
-                new Animation("player/12 Crouching Rizzler Down", 1.75F),
-                new Animation("player/13 Crouching Rizzler Down - Reflected", 1.75F),
-                new Animation("player/14 Crouching Rizzler Mogging", 1.75F),
-                new Animation("player/15 Crouching Rizzler Mogging - Reflected", 1.75F),
-                new Animation("player/16 Crouching Rizzler Up", 0.75F),
-                new Animation("player/17 Crouching Rizzler Up - Reflected", 0.75F)
-            );    
-            /* Falls Through */
+            case Game.GAME_START:
+                this.player = new Player(
+                    new Animation("player/0 Breathing Sigma", 1.5F),
+                    new Animation("player/1 Breathing Sigma - Reflected", 1.5F),
+                    new Animation("player/2 Breathing Sigma Mogging", 1.5F),
+                    new Animation("player/3 Breathing Sigma Mogging - Reflected", 1.5F),
+                    new Animation("player/4 Walking Beta", 0.95F),
+                    new Animation("player/5 Walking Beta - Reflected", 0.95F),
+                    new Animation("player/6 Walking Beta Mogging", 0.95F),
+                    new Animation("player/7 Walking Beta Mogging - Reflected", 0.95F),
+                    new Animation("player/8 Running Edger", 1.75F),
+                    new Animation("player/9 Running Edger - Reflected", 1.75F),
+                    new Animation("player/10 Running Edger Mogging", 1.75F),
+                    new Animation("player/11 Running Edger Mogging - Reflected", 1.75F),
+                    new Animation("player/12 Crouching Rizzler Down", 1.75F),
+                    new Animation("player/13 Crouching Rizzler Down - Reflected", 1.75F),
+                    new Animation("player/14 Crouching Rizzler Mogging", 1.75F),
+                    new Animation("player/15 Crouching Rizzler Mogging - Reflected", 1.75F),
+                    new Animation("player/16 Crouching Rizzler Up", 0.75F),
+                    new Animation("player/17 Crouching Rizzler Up - Reflected", 0.75F)
+                );    
+                /* Falls Through */
 
-        case Game.GAME_RESET:    
-        nenaRoom = new Location(0, 350, "Room.png");
-        roomHallway = new Location(0, 350, "HallwayUp.png");
-        upperFrontHallway = new Location(0, 350, "FrontUp.png");
-        stairwayDown = new Location(0, 350, "Stairwaydown.png");
-        stairwayUp = new Location(0, 350, "Stairway.png");
-        backHallway = new Location(0, 350, "Back.png");
-        innerGarden = new Location(0, 350, "Garden.png");
-        mainLobby = new Location(0, 350, "Lobby.png");
-        emptyHallway = new Location(0, 350, "Hallway.png");
-        upperBackHallway = new Location(0, 350, "BackUp.png");
-    
+            case Game.GAME_RESET:    
+                nenaRoom = new Location(0, 350, "Room.png");
+                roomHallway = new Location(0, 350, "HallwayUp.png");
+                upperFrontHallway = new Location(0, 350, "FrontUp.png");
+                stairwayDown = new Location(0, 350, "Stairwaydown.png");
+                stairwayUp = new Location(0, 350, "Stairway.png");
+                backHallway = new Location(0, 350, "Back.png");
+                innerGarden = new Location(0, 350, "Garden.png");
+                mainLobby = new Location(0, 350, "Lobby.png");
+                emptyHallway = new Location(0, 350, "Hallway.png");
+                upperBackHallway = new Location(0, 350, "BackUp.png");
+            
 
-        currentLocation = mainLobby;
+                currentLocation = nenaRoom;
 
-        allLocations = new Location[]{mainLobby, roomHallway, upperFrontHallway, stairwayDown, stairwayUp, backHallway, emptyHallway, upperBackHallway};
-        coloredBooks = new CollectibleEntity[] { 
-                        new CollectibleEntity("whitebook.png", "book"), 
-                        new CollectibleEntity("bluebook.png", "book"), 
-                        new CollectibleEntity("greenbook.png", "book"),
-                        new CollectibleEntity("orangebook.png", "book"), 
-                        new CollectibleEntity("pinkbook.png", "book"), };
-        placedBook  = new boolean[] {false, false, false, false, false};
+                allLocations = new Location[]{mainLobby, roomHallway, upperFrontHallway, stairwayDown, stairwayUp, backHallway, emptyHallway, upperBackHallway};
+                coloredBooks = new CollectibleEntity[] { 
+                                new CollectibleEntity("whitebook.png", "book"), 
+                                new CollectibleEntity("bluebook.png", "book"), 
+                                new CollectibleEntity("greenbook.png", "book"),
+                                new CollectibleEntity("orangebook.png", "book"), 
+                                new CollectibleEntity("pinkbook.png", "book"), };
+                placedBook  = new boolean[] {true, false, false, false, false};
 
-        roomHToRoom = new DoorEntity(nenaRoom, null);
+                roomHToRoom = new DoorEntity(nenaRoom, null);
 
-        DoorEntity roomToRH = new DoorEntity(roomHallway, null);
-        DoorEntity roomHToFHU = new DoorEntity(upperFrontHallway, null);
-        DoorEntity roomHToBHU = new DoorEntity(upperBackHallway, null);
+                DoorEntity roomToRH = new DoorEntity(roomHallway, null);
+                DoorEntity roomHToFHU = new DoorEntity(upperFrontHallway, null);
+                DoorEntity roomHToBHU = new DoorEntity(upperBackHallway, null);
 
-        DoorEntity backHUToRH = new DoorEntity(roomHallway, null);
-        DoorEntity backHUToSD = new DoorEntity(stairwayDown, null);
+                DoorEntity backHUToRH = new DoorEntity(roomHallway, null);
+                DoorEntity backHUToSD = new DoorEntity(stairwayDown, null);
 
-        DoorEntity frontHUToRH = new DoorEntity(roomHallway, null);
-        DoorEntity frontHUToSD = new DoorEntity(stairwayDown, null);
+                DoorEntity frontHUToRH = new DoorEntity(roomHallway, null);
+                DoorEntity frontHUToSD = new DoorEntity(stairwayDown, null);
 
-        DoorEntity stairwayDToFHU = new DoorEntity(upperFrontHallway, null);
-        DoorEntity stairwayDToSU = new DoorEntity(stairwayUp, null);
-        DoorEntity stairwayDToBHU = new DoorEntity(upperBackHallway, null);
+                DoorEntity stairwayDToFHU = new DoorEntity(upperFrontHallway, null);
+                DoorEntity stairwayDToSU = new DoorEntity(stairwayUp, null);
+                DoorEntity stairwayDToBHU = new DoorEntity(upperBackHallway, null);
 
-        DoorEntity stairwayUToSD = new DoorEntity(stairwayDown, null);
-        DoorEntity stairwayUToLobby = new DoorEntity(mainLobby, null);
-        DoorEntity stairwayUToBHL = new DoorEntity(backHallway, null);
+                DoorEntity stairwayUToSD = new DoorEntity(stairwayDown, null);
+                DoorEntity stairwayUToLobby = new DoorEntity(mainLobby, null);
+                DoorEntity stairwayUToBHL = new DoorEntity(backHallway, null);
 
-        lobbyToGarden = new DoorEntity(innerGarden, null);
-        DoorEntity lobbyToSU = new DoorEntity(stairwayUp, null);
-        DoorEntity lobbyToEH = new DoorEntity(emptyHallway, null);
-        
-        backHLToGarden = new DoorEntity(innerGarden, null);
-        DoorEntity backHLToSU = new DoorEntity(stairwayUp, null);
-        DoorEntity backHLToEH = new DoorEntity(emptyHallway, null);
+                lobbyToGarden = new DoorEntity(innerGarden, null);
+                DoorEntity lobbyToSU = new DoorEntity(stairwayUp, null);
+                DoorEntity lobbyToEH = new DoorEntity(emptyHallway, null);
+                
+                backHLToGarden = new DoorEntity(innerGarden, null);
+                DoorEntity backHLToSU = new DoorEntity(stairwayUp, null);
+                DoorEntity backHLToEH = new DoorEntity(emptyHallway, null);
 
-        gardenToLobby = new DoorEntity(mainLobby, null);
-        gardenToBHL = new DoorEntity(backHallway, null);
-        
-        DoorEntity emptyHToLobby = new DoorEntity(mainLobby, null);
-        DoorEntity emptyHToBHL = new DoorEntity(backHallway, null);
+                gardenToLobby = new DoorEntity(mainLobby, null);
+                gardenToBHL = new DoorEntity(backHallway, null);
+                
+                DoorEntity emptyHToLobby = new DoorEntity(mainLobby, null);
+                DoorEntity emptyHToBHL = new DoorEntity(backHallway, null);
 
-        roomToRH.linkToDoor(roomHToRoom);
+                roomToRH.linkToDoor(roomHToRoom);
 
-        roomHToBHU.linkToDoor(backHUToRH);
-        roomHToFHU.linkToDoor(frontHUToRH);
+                roomHToBHU.linkToDoor(backHUToRH);
+                roomHToFHU.linkToDoor(frontHUToRH);
 
-        gardenToBHL.linkToDoor(backHLToGarden);
-        gardenToLobby.linkToDoor(lobbyToGarden);
+                gardenToBHL.linkToDoor(backHLToGarden);
+                gardenToLobby.linkToDoor(lobbyToGarden);
 
-        backHLToSU.linkToDoor(stairwayUToBHL);
-        backHLToEH.linkToDoor(emptyHToBHL);
+                backHLToSU.linkToDoor(stairwayUToBHL);
+                backHLToEH.linkToDoor(emptyHToBHL);
 
-        lobbyToSU.linkToDoor(stairwayUToLobby);
-        lobbyToEH.linkToDoor(emptyHToLobby);
+                lobbyToSU.linkToDoor(stairwayUToLobby);
+                lobbyToEH.linkToDoor(emptyHToLobby);
 
-        backHUToRH.linkToDoor(roomHToBHU);
-        backHUToSD.linkToDoor(stairwayDToBHU);
+                backHUToRH.linkToDoor(roomHToBHU);
+                backHUToSD.linkToDoor(stairwayDToBHU);
 
-        frontHUToRH.linkToDoor(roomHToFHU);
-        frontHUToSD.linkToDoor(stairwayDToFHU);
+                frontHUToRH.linkToDoor(roomHToFHU);
+                frontHUToSD.linkToDoor(stairwayDToFHU);
 
-        stairwayDToFHU.linkToDoor(frontHUToSD);
-        stairwayDToBHU.linkToDoor(backHUToSD);
-        stairwayDToSU.linkToDoor(stairwayUToSD);
+                stairwayDToFHU.linkToDoor(frontHUToSD);
+                stairwayDToBHU.linkToDoor(backHUToSD);
+                stairwayDToSU.linkToDoor(stairwayUToSD);
 
-        stairwayUToSD.linkToDoor(stairwayDToSU);
-        stairwayUToBHL.linkToDoor(backHLToSU);
-        stairwayUToLobby.linkToDoor(lobbyToSU);
-        
-        emptyHToBHL.linkToDoor(backHLToEH);
-        emptyHToLobby.linkToDoor(lobbyToEH);
+                stairwayUToSD.linkToDoor(stairwayDToSU);
+                stairwayUToBHL.linkToDoor(backHLToSU);
+                stairwayUToLobby.linkToDoor(lobbyToSU);
+                
+                emptyHToBHL.linkToDoor(backHLToEH);
+                emptyHToLobby.linkToDoor(lobbyToEH);
 
-        roomHToRoom.linkToDoor(roomToRH);
-        lobbyToGarden.linkToDoor(gardenToLobby);
-        backHLToGarden.linkToDoor(gardenToBHL);
+                roomHToRoom.linkToDoor(roomToRH);
+                lobbyToGarden.linkToDoor(gardenToLobby);
+                backHLToGarden.linkToDoor(gardenToBHL);
 
 
 
-        player.setPosX((GameWindow.GAME_WIDTH - player.getWidth()) / 2);
-        player.setPosY(440);
-        
-        // lobby.setImageAtGrid(1, 2, new FlyingGhost(1000, 10, 1, 1));
-        // lobby.setImageAtGrid(3, 10, new HeadlessGhost(300, 3));
+                player.setPosX((GameWindow.GAME_WIDTH - player.getWidth()) / 2);
+                player.setPosY(440);
+                
+                // lobby.setImageAtGrid(1, 2, new FlyingGhost(1000, 10, 1, 1));
+                // lobby.setImageAtGrid(3, 10, new HeadlessGhost(300, 3));
 
-        nenaRoom.setImageAtGrid(3, 3, roomToRH);
+                nenaRoom.setImageAtGrid(3, 3, roomToRH);
+                nenaRoom.setImageAtGrid(2, 10, coloredBooks[0]);
+       
+                roomHallway.setImageAtGrid(3, 32, roomHToFHU);
+                roomHallway.setImageAtGrid(3, 0, roomHToBHU);
+                roomHallway.setImageAtGrid(3, 10, roomHToRoom);
+                
+                innerGarden.setImageAtGrid(3, 18, gardenToLobby);
+                innerGarden.setImageAtGrid(3, 0, gardenToBHL);
 
-        roomHallway.setImageAtGrid(3, 32, roomHToFHU);
-        roomHallway.setImageAtGrid(3, 0, roomHToBHU);
-        roomHallway.setImageAtGrid(3, 10, roomHToRoom);
-        
-        innerGarden.setImageAtGrid(3, 18, gardenToLobby);
-        innerGarden.setImageAtGrid(3, 0, gardenToBHL);
+                upperFrontHallway.setImageAtGrid(3, 0, frontHUToRH);
+                upperFrontHallway.setImageAtGrid(3, 32, frontHUToSD);
 
-        upperFrontHallway.setImageAtGrid(3, 0, frontHUToRH);
-        upperFrontHallway.setImageAtGrid(3, 32, frontHUToSD);
+                upperBackHallway.setImageAtGrid(3, 0, backHUToSD);
+                upperBackHallway.setImageAtGrid(3, 32, backHUToRH);
 
-        upperBackHallway.setImageAtGrid(3, 0, backHUToSD);
-        upperBackHallway.setImageAtGrid(3, 32, backHUToRH);
+                stairwayDown.setImageAtGrid(3, 0, stairwayDToFHU);
+                stairwayDown.setImageAtGrid(3, 15, stairwayDToSU);
+                stairwayDown.setImageAtGrid(3, 32, stairwayDToBHU);
 
-        stairwayDown.setImageAtGrid(3, 0, stairwayDToFHU);
-        stairwayDown.setImageAtGrid(3, 15, stairwayDToSU);
-        stairwayDown.setImageAtGrid(3, 32, stairwayDToBHU);
+                emptyHallway.setImageAtGrid(3, 0, emptyHToBHL);
+                emptyHallway.setImageAtGrid(3, 32, emptyHToLobby);
 
-        emptyHallway.setImageAtGrid(3, 0, emptyHToBHL);
-        emptyHallway.setImageAtGrid(3, 32, emptyHToLobby);
+                mainLobby.setImageAtGrid(3, 7, lobbyToEH);
+                mainLobby.setImageAtGrid(3, 27, lobbyToGarden);
+                mainLobby.setImageAtGrid(3, 38, lobbyToSU);
 
-        mainLobby.setImageAtGrid(3, 7, lobbyToEH);
-        mainLobby.setImageAtGrid(3, 27, lobbyToGarden);
-        mainLobby.setImageAtGrid(3, 38, lobbyToSU);
+                backHallway.setImageAtGrid(3, 0, backHLToSU);
+                backHallway.setImageAtGrid(3, 12, backHLToGarden);
+                backHallway.setImageAtGrid(3, 32, backHLToEH);
 
-        backHallway.setImageAtGrid(3, 0, backHLToSU);
-        backHallway.setImageAtGrid(3, 12, backHLToGarden);
-        backHallway.setImageAtGrid(3, 32, backHLToEH);
+                stairwayUp.setImageAtGrid(3, 0, stairwayUToLobby);
+                stairwayUp.setImageAtGrid(3, 15, stairwayUToSD);
+                stairwayUp.setImageAtGrid(3, 32, stairwayUToBHL);
 
-        stairwayUp.setImageAtGrid(3, 0, stairwayUToLobby);
-        stairwayUp.setImageAtGrid(3, 15, stairwayUToSD);
-        stairwayUp.setImageAtGrid(3, 32, stairwayUToBHL);
+                //Designs
+                this.nenaRoom.setImageAtGrid(3, 8, new Sprite("DogTrash.png"));
+                this.roomHallway.setImageAtGrid(3, 3, new Sprite("door.png"));
+                this.roomHallway.setImageAtGrid(3, 9, new Sprite("door.png"));
+                this.roomHallway.setImageAtGrid(3, 14, new Sprite("door.png"));
+                this.roomHallway.setImageAtGrid(3, 20, new Sprite("door.png"));
+                this.roomHallway.setImageAtGrid(3, 26, new Sprite("door.png"));
+                this.roomHallway.setImageAtGrid(3, 31, new Sprite("door.png"));
+                this.upperFrontHallway.setImageAtGrid(3, 7, new Sprite("door.png"));
+                this.upperFrontHallway.setImageAtGrid(3, 13, new Sprite("door.png"));
+                this.upperFrontHallway.setImageAtGrid(3, 19, new Sprite("door.png"));
+                this.upperFrontHallway.setImageAtGrid(3, 25, new Sprite("door.png"));
+                this.upperBackHallway.setImageAtGrid(3, 7, new Sprite("door.png"));
+                this.upperBackHallway.setImageAtGrid(3, 13, new Sprite("door.png"));
+                this.upperBackHallway.setImageAtGrid(3, 19, new Sprite("door.png"));
+                this.upperBackHallway.setImageAtGrid(3, 25, new Sprite("door.png"));
+                this.stairwayDown.setImageAtGrid(3, 27, new Sprite("Reff.png"));
+                this.stairwayDown.setImageAtGrid(3, 30, new Sprite("Waters2.png"));
+                this.stairwayDown.setImageAtGrid(3, 6, new Sprite("door.png"));
+                this.stairwayDown.setImageAtGrid(3, 24, new Sprite("DogTrash.png"));
+                this.emptyHallway.setImageAtGrid(2, 30, new Sprite("Hydrant.png"));
+                this.emptyHallway.setImageAtGrid(2, 27, new Sprite("Occupants.png"));
+                this.emptyHallway.setImageAtPixel(1490, 430, new Sprite("Reff.png"));
+                this.emptyHallway.setImageAtPixel(1750, 430, new Sprite("Waters2.png"));
+                this.emptyHallway.setImageAtGrid(3, 16, new Sprite("door.png"));
+                this.emptyHallway.setImageAtGrid(3, 10, new Sprite("door.png"));
+                this.emptyHallway.setImageAtGrid(3, 4, new Sprite("door.png"));
+                this.emptyHallway.setImageAtGrid(3, 28, new Sprite("DogTrash.png"));
 
-        //Designs
-        this.nenaRoom.setImageAtGrid(3, 8, new Sprite("DogTrash.png"));
-        this.roomHallway.setImageAtGrid(3, 3, new Sprite("door.png"));
-        this.roomHallway.setImageAtGrid(3, 9, new Sprite("door.png"));
-        this.roomHallway.setImageAtGrid(3, 14, new Sprite("door.png"));
-        this.roomHallway.setImageAtGrid(3, 20, new Sprite("door.png"));
-        this.roomHallway.setImageAtGrid(3, 26, new Sprite("door.png"));
-        this.roomHallway.setImageAtGrid(3, 31, new Sprite("door.png"));
-        this.upperFrontHallway.setImageAtGrid(3, 7, new Sprite("door.png"));
-        this.upperFrontHallway.setImageAtGrid(3, 13, new Sprite("door.png"));
-        this.upperFrontHallway.setImageAtGrid(3, 19, new Sprite("door.png"));
-        this.upperFrontHallway.setImageAtGrid(3, 25, new Sprite("door.png"));
-        this.upperBackHallway.setImageAtGrid(3, 7, new Sprite("door.png"));
-        this.upperBackHallway.setImageAtGrid(3, 13, new Sprite("door.png"));
-        this.upperBackHallway.setImageAtGrid(3, 19, new Sprite("door.png"));
-        this.upperBackHallway.setImageAtGrid(3, 25, new Sprite("door.png"));
-        this.stairwayDown.setImageAtGrid(3, 27, new Sprite("Reff.png"));
-        this.stairwayDown.setImageAtGrid(3, 30, new Sprite("Waters2.png"));
-        this.stairwayDown.setImageAtGrid(3, 6, new Sprite("door.png"));
-        this.stairwayDown.setImageAtGrid(3, 24, new Sprite("DogTrash.png"));
-        this.emptyHallway.setImageAtGrid(2, 30, new Sprite("Hydrant.png"));
-        this.emptyHallway.setImageAtGrid(2, 27, new Sprite("Occupants.png"));
-        this.emptyHallway.setImageAtPixel(1490, 430, new Sprite("Reff.png"));
-        this.emptyHallway.setImageAtPixel(1750, 430, new Sprite("Waters2.png"));
-        this.emptyHallway.setImageAtGrid(3, 16, new Sprite("door.png"));
-        this.emptyHallway.setImageAtGrid(3, 10, new Sprite("door.png"));
-        this.emptyHallway.setImageAtGrid(3, 4, new Sprite("door.png"));
-        this.emptyHallway.setImageAtGrid(3, 28, new Sprite("DogTrash.png"));
-
-        this.mainLobby.setImageAtPixel(1700, 430, new Sprite("Waters.png"));
-        this.mainLobby.setImageAtGrid(3, 19, new Sprite("Coffeee.png"));
-        this.mainLobby.setImageAtGrid(3, 32, new Sprite("Microwave.png"));
-        this.mainLobby.setImageAtPixel(200, 400, new Sprite("Frames.png"));
-        this.backHallway.setImageAtGrid(3, 6, new Sprite("door.png"));
-        this.backHallway.setImageAtGrid(3, 16, new Sprite("door.png"));
-        this.backHallway.setImageAtGrid(3, 22, new Sprite("door.png"));
-        this.backHallway.setImageAtGrid(3, 28, new Sprite("door.png"));
-        this.stairwayUp.setImageAtGrid(3, 4, new Sprite("door.png"));
-        this.stairwayUp.setImageAtGrid(3, 10, new Sprite("door.png"));
-        this.stairwayUp.setImageAtGrid(3, 26, new Sprite("door.png"));
-        default:
-            break;  
+                this.mainLobby.setImageAtPixel(1700, 430, new Sprite("Waters.png"));
+                this.mainLobby.setImageAtGrid(3, 19, new Sprite("Coffeee.png"));
+                this.mainLobby.setImageAtGrid(3, 32, new Sprite("Microwave.png"));
+                this.mainLobby.setImageAtPixel(200, 400, new Sprite("Frames.png"));
+                this.backHallway.setImageAtGrid(3, 6, new Sprite("door.png"));
+                this.backHallway.setImageAtGrid(3, 16, new Sprite("door.png"));
+                this.backHallway.setImageAtGrid(3, 22, new Sprite("door.png"));
+                this.backHallway.setImageAtGrid(3, 28, new Sprite("door.png"));
+                this.stairwayUp.setImageAtGrid(3, 4, new Sprite("door.png"));
+                this.stairwayUp.setImageAtGrid(3, 10, new Sprite("door.png"));
+                this.stairwayUp.setImageAtGrid(3, 26, new Sprite("door.png"));
+            default:
+                break;  
         }
     }
 
@@ -338,24 +339,19 @@ public class Game extends JPanel implements Runnable {
     public void checkGameEvents() {
 
         //BOOKS
-        if (player.getInventory().size() == 0 && !placedBook[0]) {
-            randomLocation = allLocations[generateRandomLocation()];
-            mainLobby.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[0]);
-            placedBook[0] = true;    
-        }
         if (player.getInventory().size() == 1 && !placedBook[1]) {
             randomLocation = allLocations[generateRandomLocation()];
-            mainLobby.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[1]);
+            randomLocation.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[1]);
             placedBook[1] = true;
         }
         if (player.getInventory().size() == 2 && !placedBook[2]) {
             randomLocation = allLocations[generateRandomLocation()];
-            mainLobby.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[2]);
+            randomLocation.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[2]);
             placedBook[2] = true;
         }
         if (player.getInventory().size() == 3 && !placedBook[3]) {
             randomLocation = allLocations[generateRandomLocation()];
-            mainLobby.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[3]);
+            randomLocation.setImageAtGrid(2, generateRandomPosition(randomLocation), coloredBooks[3]);
             placedBook[3] = true;
 
         }
@@ -375,10 +371,13 @@ public class Game extends JPanel implements Runnable {
             }
             ambience.stopSound();
             music.stopSound();
-            mainLobby.setImageAtGrid(2, 5, coloredBooks[4]);
-            mainLobby.setImageAtGrid(2, 10, new CollectibleEntity("room14key.png", "key"));
-            placedBook[4] = true;
+            nenaRoom.setImageAtGrid(2, 10, new CollectibleEntity("room14key.png", "key"));
         }    
+        if (player.getInventory().size() == 5 && !placedBook[4]) {
+            mainLobby.setImageAtGrid(2, 5, coloredBooks[4]);
+            placedBook[4] = true;
+
+        }
         if (player.getInventory().size() == 6 && !end) {
             FinaleGhost mm = null;
             OUTER_LOOP: for (Location location: allLocations) {
@@ -406,21 +405,24 @@ public class Game extends JPanel implements Runnable {
             poynoise.startProximity(500, player.getHitbox().x, 800);
         }    
 
-    
-
-
-
         //GHOSTS
         if(player.getInventory().size() == 1 && !spawnedHansen) {
             for (Location location: allLocations) {
-                location.setImageAtGrid(2, 1, new FlyingGhost(2000, 0, 6, 3));       
+                int randomCol = random.nextInt(location.getColumns());
+                location.setImageAtGrid(2, randomCol, new FlyingGhost(
+                    location.getBorderLeft(), location.getBorderRight(), 
+                    0, 6, 3));
+      
             }
             this.spawnedHansen = true ;
         }
 
-        if(player.getInventory().size() == 2 && !spawnedClyde) {
+        if(player.getInventory().size() == 1 && !spawnedClyde) {
             for (Location location: allLocations) {
-                location.setImageAtGrid(3, 4, new HeadlessGhost(2000, 5));
+                int randomCol = random.nextInt(location.getColumns());
+                location.setImageAtGrid(3, randomCol, new HeadlessGhost(
+                    location.getBorderLeft(), location.getBorderRight(), 5));
+
             }
             this.spawnedClyde = true ;
         }

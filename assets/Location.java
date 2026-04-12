@@ -23,7 +23,7 @@ public class Location extends Sprite {
         this.rows = getHeight() / TILE_SIZE;
         this.columns = getWidth() / TILE_SIZE;
         this.leftBorder = 0;
-        this.rightBorder = getWidth();
+        this.rightBorder = getWidth() - 100;
         this.spriteList = new ArrayList<Sprite>();
         this.entityList = new ArrayList<Entity>();
         this.gridMap = new Rectangle[rows][columns]; 
@@ -97,6 +97,11 @@ public class Location extends Sprite {
             for (Rectangle rect: rectRows) {
                 rect.x += speed;
             } 
+        }
+
+        for (Entity entity: entityList) {
+            if (entity instanceof FlyingGhost fg) fg.moveBounds(speed);
+            if (entity instanceof HeadlessGhost hg) hg.moveBounds(speed);
         }
     }
 }

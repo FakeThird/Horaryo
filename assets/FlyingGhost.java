@@ -3,9 +3,9 @@ package assets;
 import java.awt.Rectangle;
 
 public class FlyingGhost extends Ghost {    
-    private int horizontalPathSpan;
+    private int leftBound;
+    private int rightBound;
     private int verticalPathSpan;
-    private int horizontalPosition;
     private int verticalPosition;
     private int horizontalSpeed;
     private int verticalSpeed;
@@ -13,48 +13,42 @@ public class FlyingGhost extends Ghost {
     private static final int FLYING_GHOST_HITBOX_WIDTH = 40;
     private static final int FLYING_GHOST_HITBOX_HEIGHT = 150;
 
-    public FlyingGhost(int horizontalPathSpan, int verticalPathSpan, 
+    public FlyingGhost(int leftBound, int rightBound, int verticalPathSpan,
                     int horizontalSpeed, int verticalSpeed) {
-        this(0, 0, horizontalPathSpan, verticalPathSpan, horizontalSpeed, verticalSpeed);
+        this(0, 0, leftBound, rightBound, verticalPathSpan, horizontalSpeed, verticalSpeed);
     }
-    public FlyingGhost(int posX, int posY, 
-                    int horizontalPathSpan, int verticalPathSpan, 
-                    int horizontalSpeed, int verticalSpeed) {
-
+    public FlyingGhost(int posX, int posY, int leftBound, int rightBound,
+                    int verticalPathSpan, int horizontalSpeed, int verticalSpeed) {
         super(posX, posY, new Animation("HANSEN/How Animated Neyro_s Shit Entry Nodes", 1F), 
                         new Animation("HANSEN/How Animated Neyro_s Shit Entry Nodes - Reflected", 1F));
-        this.horizontalPathSpan = horizontalPathSpan;
+        this.leftBound = leftBound;
+        this.rightBound = rightBound;
         this.verticalPathSpan = verticalPathSpan;
         this.horizontalSpeed = horizontalSpeed;
         this.verticalSpeed = verticalSpeed;
-    }  
-
+    } 
+    
     @Override
     public void updateGhostPathing() {
         verticalPosition += verticalSpeed;
-        horizontalPosition += horizontalSpeed;
-
-        if (verticalPosition >= verticalPathSpan || 
-            verticalPosition <= 0) {
-            
-            verticalSpeed *= -1; 
-        }
-        if (horizontalPosition >= horizontalPathSpan ||
-            horizontalPosition <= 0) {
-            
-            horizontalSpeed *= -1;
-        }
-
-        if (horizontalSpeed > 0) {
-            setGhostRightAnimation();
-        }
-        if (horizontalSpeed < 0) {
-            setGhostLeftAnimation();
-        }
+        if (verticalPosition >= verticalPathSpan || verticalPosition <= 0) verticalSpeed *= -1;
 
         moveX(horizontalSpeed);
         moveY(verticalSpeed);
-    } 
+
+        if (getPosX() + getWidth() >= rightBound || getPosX() <= leftBound) {
+            horizontalSpeed *= -1;
+            moveX(horizontalSpeed);
+        }
+
+        if (horizontalSpeed > 0) setGhostRightAnimation();
+        if (horizontalSpeed < 0) setGhostLeftAnimation();
+    }
+
+    public void moveBounds(int speed) {
+        leftBound += speed;
+        rightBound += speed;
+    }
 
     @Override
     public Rectangle getHitbox() {
