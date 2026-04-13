@@ -7,7 +7,7 @@ public class VampireGhost extends Ghost {
     private Player player;
     private static final int FLYING_GHOST_HITBOX_WIDTH = 40;
     private static final int FLYING_GHOST_HITBOX_HEIGHT = 220;
-    private static final int SPEED = 4;
+    private static final int SPEED = 7;
 
     public VampireGhost(Player player) {
         super(0, 0, new Animation("NEYRO/Nobody Enjoys Yielding Rodent Overpopulation", 1F), 
