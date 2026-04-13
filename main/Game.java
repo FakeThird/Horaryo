@@ -82,7 +82,12 @@ public class Game extends JPanel implements Runnable {
     private Sound mmnoise = new Sound("mimic.wav") ;
     private Sound poynoise = new Sound("poy.wav") ;
 
-    
+    // Jumpscare
+    public boolean showJumpscare = false;
+    public int jumpscareTimer = 0;
+    public static final int JUMPSCARE_DURATION = 60; // 2 seconds at 30fps
+    public String jumpscareImage = "";
+
     Location mainLobby;
     Location emptyHallway;
     Location stairwayUp ;
@@ -340,6 +345,15 @@ public class Game extends JPanel implements Runnable {
 
     public void checkGameEvents() {
 
+        if (showJumpscare) {
+            jumpscareTimer++;
+            if (jumpscareTimer >= JUMPSCARE_DURATION) {
+                showJumpscare = false;
+                reset();
+            }
+            return; // pause all other game events during jumpscare
+        }
+
         //BOOKS
         if (player.getInventory().size() == 1 && !placedBook[1]) {
             randomLocation = allLocations[generateRandomLocation()];
@@ -373,7 +387,7 @@ public class Game extends JPanel implements Runnable {
             }
             ambience.stopSound();
             music.stopSound();
-            nenaRoom.setImageAtGrid(2, 10, coloredBooks[4]);
+            nenaRoom.setImageAtGrid(2, 10, new CollectibleEntity("pinkbook.png", "book"));
             placedBook[4] = true;
             
         }    
@@ -415,6 +429,7 @@ public class Game extends JPanel implements Runnable {
                 // Spawn at least 300px away from either border
                 int minX = location.getBorderLeft() + 300;
                 int maxX = location.getBorderRight() - 300;
+                if (maxX <= minX) maxX = minX + 80;
                 int randomX = minX + random.nextInt(maxX - minX);
                 int randomCol = randomX / 80; // convert to column (TILE_SIZE = 80)
                 randomCol = Math.max(0, Math.min(randomCol, location.getColumns() - 1));
@@ -428,6 +443,7 @@ public class Game extends JPanel implements Runnable {
             for (Location location: allLocations) {
                 int minX = location.getBorderLeft() + 300;
                 int maxX = location.getBorderRight() - 300;
+                if (maxX <= minX) maxX = minX + 80;
                 int randomX = minX + random.nextInt(maxX - minX);
                 int randomCol = randomX / 80;
                 randomCol = Math.max(0, Math.min(randomCol, location.getColumns() - 1));
@@ -631,104 +647,112 @@ public class Game extends JPanel implements Runnable {
 
         switch (shouldDrawBatteryImage) {
             case 1: //12000 -- 10800
-            // Logic for when shouldDrawBatteryImage is 1
-            is = getClass().getResourceAsStream("/images/oneBatt.png");
+                // Logic for when shouldDrawBatteryImage is 1
+                is = getClass().getResourceAsStream("/images/oneBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670,810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 2: // 10800 -- 9600
+                is = getClass().getResourceAsStream("/images/twoBatt.png");
+                // Logic for when shouldDrawBatteryImage is 2
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 3: // 9600 -- 8400
+                // Logic for when shouldDrawBatteryImage is 3
+                is = getClass().getResourceAsStream("/images/threeBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 4: // 8400 -- 7200
+                // Logic for when shouldDrawBatteryImage is 4
+                is = getClass().getResourceAsStream("/images/fourBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 5: // 7200 -- 6000
+                // Logic for when shouldDrawBatteryImage is 5
+                is = getClass().getResourceAsStream("/images/fiveBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 6: // 6000 -- 4800
+                // Logic for when shouldDrawBatteryImage is 6
+                is = getClass().getResourceAsStream("/images/sixBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 7: // 4800 -- 3600
+                // Logic for when shouldDrawBatteryImage is 7
+                is = getClass().getResourceAsStream("/images/sevenBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 8: // 3600 -- 2400
+                // Logic for when shouldDrawBatteryImage is 8
+                is = getClass().getResourceAsStream("/images/eightBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 9: // 2400 -- 1200
+                // Logic for when shouldDrawBatteryImage is 9
+                is = getClass().getResourceAsStream("/images/nineBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+            case 10: // 2400 -- 1200
+                // Logic for when shouldDrawBatteryImage is 10
+                is = getClass().getResourceAsStream("/images/deadBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670, 810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+        
+                default:
+                is = getClass().getResourceAsStream("/images/oneBatt.png");
+                try {
+                    g2d.drawImage(ImageIO.read(is), 1670,810, null);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Optionally print the stack trace for debugging
+                }
+                break;
+        }
+        if (showJumpscare) {
             try {
-                g2d.drawImage(ImageIO.read(is), 1670,810, null);
+                InputStream js = getClass().getResourceAsStream("/images/" + jumpscareImage);
+                g2d.drawImage(ImageIO.read(js), 0, 0, GameWindow.GAME_WIDTH, GameWindow.GAME_HEIGHT, null);
             } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
+                e.printStackTrace();
             }
-            break;
-        case 2: // 10800 -- 9600
-            is = getClass().getResourceAsStream("/images/twoBatt.png");
-            // Logic for when shouldDrawBatteryImage is 2
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 3: // 9600 -- 8400
-            // Logic for when shouldDrawBatteryImage is 3
-            is = getClass().getResourceAsStream("/images/threeBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 4: // 8400 -- 7200
-            // Logic for when shouldDrawBatteryImage is 4
-            is = getClass().getResourceAsStream("/images/fourBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 5: // 7200 -- 6000
-            // Logic for when shouldDrawBatteryImage is 5
-            is = getClass().getResourceAsStream("/images/fiveBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 6: // 6000 -- 4800
-            // Logic for when shouldDrawBatteryImage is 6
-            is = getClass().getResourceAsStream("/images/sixBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 7: // 4800 -- 3600
-            // Logic for when shouldDrawBatteryImage is 7
-            is = getClass().getResourceAsStream("/images/sevenBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 8: // 3600 -- 2400
-            // Logic for when shouldDrawBatteryImage is 8
-            is = getClass().getResourceAsStream("/images/eightBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 9: // 2400 -- 1200
-            // Logic for when shouldDrawBatteryImage is 9
-            is = getClass().getResourceAsStream("/images/nineBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-        case 10: // 2400 -- 1200
-            // Logic for when shouldDrawBatteryImage is 10
-            is = getClass().getResourceAsStream("/images/deadBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670, 810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-    
-            default:
-            is = getClass().getResourceAsStream("/images/oneBatt.png");
-            try {
-                g2d.drawImage(ImageIO.read(is), 1670,810, null);
-            } catch (IOException e) {
-                e.printStackTrace(); // Optionally print the stack trace for debugging
-            }
-            break;
-            }
+        }
     }
 }

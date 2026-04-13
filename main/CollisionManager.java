@@ -126,9 +126,16 @@ public class CollisionManager {
             (collidedGhost instanceof HeadlessGhost && player.isRunning()) ||
             collidedGhost instanceof VampireGhost ||
             collidedGhost instanceof RunningGhost || collidedGhost instanceof FinaleGhost)) {
-            if(collidedGhost instanceof FinaleGhost) System.exit(0) ;
-            game.reset(); 
-        }   
+            if (collidedGhost instanceof FinaleGhost) System.exit(0);
+            if (!game.showJumpscare) {
+                game.showJumpscare = true;
+                game.jumpscareTimer = 0;
+                if (collidedGhost instanceof FlyingGhost) game.jumpscareImage = "hansen_scare.png";
+                else if (collidedGhost instanceof HeadlessGhost) game.jumpscareImage = "clyde_scare.png";
+                else if (collidedGhost instanceof VampireGhost) game.jumpscareImage = "neyro_scare.png";
+                else if (collidedGhost instanceof RunningGhost) game.jumpscareImage = "julia_scare.png";
+            }
+        }
 
     
         collidedEntry = null;
