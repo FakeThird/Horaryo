@@ -54,10 +54,11 @@ As the player, you can interact with the game using the following commands:
 - `shift` - to run and increase your speed.
 - `c-key` - to be able to crouch and again to stand up.
 - `e-key` - to interact and claim the books and enter doors.
+- `f-key` - to be able to turn on the flashlight and off.
 
 # Limitations and Issues
 - **(Game) Last Book Spawning:** There will be cases that the last book is spawned twice, making it so that after picking the book it will still be there giving you the option of just picking up the book and causing the ending sequence to happen.
-- **(Compilation) Java Dependencies:** As the game has been implemeted in java and hasn't been exported the user must have downlaoded java to be able to play the game.
+- **(Compilation) Java Dependencies:** As the game has been implemeted in java and hasn't been exported the user must have downloaded Java to be able to play the game.
 
 # Graphics and Tools 
 - Pixilart Studio: [Pixilart](https://www.pixilart.com/)
