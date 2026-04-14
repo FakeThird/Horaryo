@@ -8,7 +8,7 @@ public class FinaleGhost extends Ghost {
     private static final int FINALE_GHOST_HITBOX_WIDTH = 150;
     private static final int FINALE_GHOST_HITBOX_HEIGHT = 335;
     private static final int SPEED = 6;
-    private static final int RUNNING_SPEED = 12;
+    private static final int RUNNING_SPEED = 9;
     private int state ;
 
     public FinaleGhost(Player player, int state) {

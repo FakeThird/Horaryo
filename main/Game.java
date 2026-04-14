@@ -456,21 +456,21 @@ public class Game extends JPanel implements Runnable {
         }
 
         // NEW (inner garden does not allow spawning of Neyro)
-        if (random.nextInt(200) < 1 && !spawnedNeyro && this.currentLocation != innerGarden && this.currentLocation != nenaRoom && player.getInventory().size() == 3) {
+        if (random.nextInt(300) < 1 && !spawnedNeyro && this.currentLocation != innerGarden && this.currentLocation != nenaRoom && player.getInventory().size() == 3) {
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 450, new VampireGhost(player)); 
             this.spawnedNeyro = true;
         }    
 
         // NEW (inner garden does not allow spawning of Julia)
-        if (random.nextInt(200) < 1 && !spawnedJulia && this.currentLocation != innerGarden && this.currentLocation != nenaRoom && player.getInventory().size() == 3) {
+        if (random.nextInt(400) < 1 && !spawnedJulia && this.currentLocation != innerGarden && this.currentLocation != nenaRoom && player.getInventory().size() == 3) {
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 450, new RunningGhost(player)); 
             this.spawnedJulia = true;
         }    
 
         // NEW (inner garden does not allow spawning of MM)
-        if (random.nextInt(100) < 1 && !spawnedMM &&  this.currentLocation != nenaRoom && player.getInventory().size() == 5) {
+        if (random.nextInt(50) < 1 && !spawnedMM &&  this.currentLocation != nenaRoom && player.getInventory().size() == 5) {
             muntingMonster = new FinaleGhost(player, random.nextInt(100)) ;
             int direction = (random.nextInt(2) == 0) ? 1: -1;     
             currentLocation.setImageAtPixel(player.getRect().x + direction * 500, 365, muntingMonster); 

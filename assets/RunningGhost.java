@@ -7,8 +7,8 @@ public class RunningGhost extends Ghost {
     private Player player;
     private static final int FLYING_GHOST_HITBOX_WIDTH = 40;
     private static final int FLYING_GHOST_HITBOX_HEIGHT = 220;
-    private static final int SPEED = 8;
-    private static final int LIFETIME = 100 ;
+    private static final int SPEED = 6;
+    private static final int LIFETIME = 80 ;
     private int life ;
 
     public RunningGhost(Player player) {
