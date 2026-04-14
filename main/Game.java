@@ -81,11 +81,12 @@ public class Game extends JPanel implements Runnable {
     private Sound congrats = new Sound("congrats.wav") ;
     private Sound mmnoise = new Sound("mimic.wav") ;
     private Sound poynoise = new Sound("poy.wav") ;
+    public Sound scream = new Sound("scream.wav") ;
 
     // Jumpscare
     public boolean showJumpscare = false;
     public int jumpscareTimer = 0;
-    public static final int JUMPSCARE_DURATION = 60; // 2 seconds at 30fps
+    public static final int JUMPSCARE_DURATION = 90; // 2 seconds at 30fps
     public String jumpscareImage = "";
 
     Location mainLobby;
@@ -349,6 +350,7 @@ public class Game extends JPanel implements Runnable {
             jumpscareTimer++;
             if (jumpscareTimer >= JUMPSCARE_DURATION) {
                 showJumpscare = false;
+                scream.stopSound();
                 reset();
             }
             return; // pause all other game events during jumpscare

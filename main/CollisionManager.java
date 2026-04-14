@@ -130,6 +130,7 @@ public class CollisionManager {
             if (!game.showJumpscare) {
                 game.showJumpscare = true;
                 game.jumpscareTimer = 0;
+                game.scream.startSound();
                 if (collidedGhost instanceof FlyingGhost) game.jumpscareImage = "hansen_scare.png";
                 else if (collidedGhost instanceof HeadlessGhost) game.jumpscareImage = "clyde_scare.png";
                 else if (collidedGhost instanceof VampireGhost) game.jumpscareImage = "neyro_scare.png";
