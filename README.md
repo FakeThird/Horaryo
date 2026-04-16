@@ -72,8 +72,17 @@ Credits to the people who made the free sounds effects that came from the follow
 
 # Getting Started: Players
 To properly try and experience **`horaryo`**, you may follow the given steps:
-1. Download the exe file in the [releases section]() of the repository.
-2. Run the exe and enjoy the game!
+1. Clone the repository:
+```bash
+git clone https://github.com/FakeThird/horaryo.git
+```
+
+2.  Make sure to have [Java](https://www.java.com/en/download/) Installed and then while in the directory:
+```bash
+java main/HoraryoApplication
+```
+3. Then enjoy the game!
+
 
 # License
 
