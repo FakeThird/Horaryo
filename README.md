@@ -72,17 +72,22 @@ Credits to the people who made the free sounds effects that came from the follow
 
 # Getting Started: Players
 To properly try and experience **`horaryo`**, you may follow the given steps:
-1. Clone the repository:
+1. Go to the official [Java download page](https://www.java.com/en/download/manual.jsp) and select the **Windows Offline (64-bit)** installer.
+2. Double-click the downloaded .exe file. If prompted by User Account Control, click **Yes**.
+3. Click the **Install button** in the setup window. The installer will extract files and complete the process automatically.
+4. **Locate** the folder of the Java file in your Program files and add the bin folder in the **Path** in your **System Environments**.
+5. Open a **Command Prompt** and type java -version. It should display the installed version number.
+```bash
+java -version
+```
+6. Clone the repository:
 ```bash
 git clone https://github.com/FakeThird/horaryo.git
 ```
-
-2.  Make sure to have [Java](https://www.java.com/en/download/) Installed and then while in the directory:
+7.  Run the following program while in the directory and then enjoy the game!
 ```bash
 java main/HoraryoApplication
 ```
-3. Then enjoy the game!
-
 
 # License
 
